@@ -3,3 +3,6 @@ node_modules/
 
 # env files
 .env*
+
+#config.json
+config/config.json

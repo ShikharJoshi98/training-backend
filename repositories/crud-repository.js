@@ -1,0 +1,62 @@
+const { where } = require("sequelize");
+
+class CrudRepository{
+    constructor(model) {
+        this.model = model;
+    }
+
+    async create(data) {
+        try {
+            const response = await this.model.create(data);
+            return response;
+        } catch (error) {
+            console.log("Error in create in crud repo:", error.message);
+        }
+    }
+
+    async destroy(id) {
+        try {
+            const response = await this.model.destroy({
+                where: {
+                    id
+                }
+            });
+            return response;
+        } catch (error) {
+            console.log("Error in destroy in crud repo:", error.message);
+        }
+    }
+
+    async get(id) {
+        try {
+            const response = await this.model.findByPk(id);
+            return response;
+        } catch (error) {
+            console.log("Error in get in crud repo:", error.message);
+        }
+    }
+
+    async getAll() {
+        try {
+            const response = await this.model.findByPk(id);
+            return response;
+        } catch (error) {
+            console.log("Error in get in crud repo:", error.message);
+        }
+    }
+
+    async update(id, data) {
+        try {
+            const response = await this.model.update(data, {
+                where: {
+                    id
+                }
+            });
+            return response;
+        } catch (error) {
+            console.log("Error in update in crud repo:", error.message);
+        }
+    }
+}
+
+module.exports = CrudRepository;
