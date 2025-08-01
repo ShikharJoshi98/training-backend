@@ -1,5 +1,6 @@
 const { companyInfoServices } = require("../services");
 
+//training-info
 async function addCompanyInfo(req, res) {
     try {
         const { name, abbv, email, phone, altPhone, address } = req.body;
@@ -32,6 +33,7 @@ async function addCompanyInfo(req, res) {
     }
 }
 
+//socialLinks
 async function addSocialLinks(req, res) {
     try {
         const { facebook, linkedIn, Instagram, twitter, youtube } = req.body;
