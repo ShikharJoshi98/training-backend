@@ -1,7 +1,7 @@
 const { Institute } = require('../models');
 const CrudRepository = require('./crud-repository');
 
-class RegisterRepository extends CrudRepository{
+class AuthRepository extends CrudRepository{
     constructor() {
         super(Institute)
     }
@@ -17,4 +17,4 @@ class RegisterRepository extends CrudRepository{
 
 }
 
-module.exports = RegisterRepository;
+module.exports = AuthRepository;

@@ -7,5 +7,5 @@ module.exports = {
     TestimonialRepository: require("./testimonial-repository"),
     TutorialRepository: require("./tutorial-repository"),
     TutorialSectionRepository: require("./tutorialSection-repository"),
-    RegisterRepository: require("./registerInstitue-repository")
+    AuthRepository: require("./auth-repository")
 }

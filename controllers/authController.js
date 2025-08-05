@@ -38,4 +38,46 @@ async function registerInstitue(req, res) {
     }
 };
 
-module.exports = { registerInstitue };
+async function login(req, res) {
+    try {
+        const { instituteName, password } = req.body;
+
+        if (!instituteName || !password) {
+            return res
+                .status(400)
+                .json({
+                    success: false,
+                    message: "Missing required fields"
+                });            
+        }
+
+        const institute = await authServices.login({ instituteName, password });
+
+        return res
+            .status(200)
+            .json({
+                success: true,
+                message: "Logged in successfully",
+                institute
+            });
+        
+    } catch (error) {
+        if (error.statusCode === 409) {
+            return res
+                .status(409)
+                .json({
+                success: false,
+                message: "Invalid Credentials"
+            });
+        }
+
+        return res
+            .status(500)
+            .json({
+                success: false,
+                message: error.message
+            });
+    }
+}
+
+module.exports = { registerInstitue,login };
