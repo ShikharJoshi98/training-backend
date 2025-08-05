@@ -1,4 +1,6 @@
 module.exports = {
     companyController: require("./companyController"),
-    testimonialController: require("./testimonialController")
+    testimonialController: require("./testimonialController"),
+    tutorialController: require("./tutorialController"),
+    authController: require("./authController")
 }

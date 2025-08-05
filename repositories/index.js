@@ -1,9 +1,11 @@
 const { CompanyInfoRepository, SocialLinksRepository } = require("./companyInfo-repository");
-const TestimonialRepository = require("./testimonial-repository");
 
 module.exports = {
     CrudRepository: require("./crud-repository"),
     CompanyInfoRepository: CompanyInfoRepository ,
     SocialLinksRepository: SocialLinksRepository,
-    TestimonialRepository:TestimonialRepository
+    TestimonialRepository: require("./testimonial-repository"),
+    TutorialRepository: require("./tutorial-repository"),
+    TutorialSectionRepository: require("./tutorialSection-repository"),
+    RegisterRepository: require("./registerInstitue-repository")
 }
