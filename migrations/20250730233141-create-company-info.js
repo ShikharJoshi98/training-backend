@@ -13,6 +13,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
+      logo: {
+        type: Sequelize.TEXT('long')
+      },
       abbv: {
         allowNull: false,
         type: Sequelize.STRING

@@ -17,6 +17,9 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
+      studentImage: {
+        type: Sequelize.TEXT('long')
+      },
       newCompany: {
         type: Sequelize.STRING
       },

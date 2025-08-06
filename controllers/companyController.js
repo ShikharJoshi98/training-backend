@@ -3,7 +3,7 @@ const { companyInfoServices } = require("../services");
 //training-info
 async function addCompanyInfo(req, res) {
     try {
-        const { name, abbv, email, phone, altPhone, address } = req.body;
+        const { name, abbv, email, logo, phone, altPhone, address } = req.body;
 
         if (!name || !abbv || !email || !phone || !address) {
             return res
@@ -14,7 +14,7 @@ async function addCompanyInfo(req, res) {
                 });
         }
 
-        const companyInfo = await companyInfoServices.createInfo({ name, abbv, email, phone, altPhone, address });
+        const companyInfo = await companyInfoServices.createInfo({ name, abbv, email, logo, phone, altPhone, address });
 
         return res
             .status(200)
@@ -52,8 +52,8 @@ async function addSocialLinks(req, res) {
             .status(500)
             .json({
                 success: false,
-                message:error.message
-        })
+                message: error.message
+            })
     }
 }
 
