@@ -3,10 +3,6 @@ const { companyController, testimonialController, tutorialController, authContro
 
 const router = express.Router();
 
-//auth-routes
-router.post('/registerInstitute', authController.registerInstitue);
-router.post('/login', authController.login);
-
 //training-info
 router.post('/addCompanyInfo', companyController.addCompanyInfo);
 router.post('/addSocialInfo', companyController.addSocialLinks);

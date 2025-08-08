@@ -8,7 +8,10 @@ class AuthRepository extends CrudRepository{
 
     async findByName(instituteName) {
         try {
-            const response = await this.model.findOne({ where: { instituteName } });
+            const response = await this.model.findOne({
+                where: { instituteName }
+            });
+
             return response;
         } catch (error) {
             console.log("Error in findByName in Register Repo", error.message);

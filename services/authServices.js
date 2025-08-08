@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const { AuthRepository } = require('../repositories');
+const generateTokenAndSetCookie = require('../utils/generateTokenAndSetCookie');
 
 const authRepository = new AuthRepository();
 
@@ -18,14 +19,15 @@ async function addInstitute(data) {
         const response = await authRepository.create(userData);
         return response;
     } catch (error) {
-        console.log("Error in authServices in addInstitute", error.message);
         throw error;
     }
 }
 
 async function login(data) {
     try {
+        
         const response = await authRepository.findByName(data.instituteName);
+        
         if (!response) {
             const error = new Error("Invalid credentials");
             error.statusCode = 409;
@@ -38,11 +40,25 @@ async function login(data) {
             error.statusCode = 409;
             throw error;
         }
-        return response;
+        
+        return {institute:response,token:generateTokenAndSetCookie(data.instituteName)};
     } catch (error) {
-        console.log("Error in authServices in login", error.message);
         throw error;
     }
 };
 
-module.exports = { addInstitute,login };
+async function authChecker(data) {
+    try {
+        const response = await authRepository.findByName(data);
+        if (!response) {
+            const error = new Error("User not found");
+            error.statusCode = 409;
+            throw error;
+        }
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
+
+module.exports = { addInstitute,login,authChecker };
