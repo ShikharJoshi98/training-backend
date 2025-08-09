@@ -1,14 +1,23 @@
-const {CompanyInfoRepository, SocialLinksRepository} = require("../repositories");
+const { CompanyInfoRepository, SocialLinksRepository } = require("../repositories");
 
 const companyInfoRepository = new CompanyInfoRepository();
 const socialLinksRepository = new SocialLinksRepository();
 
-async function createInfo(data) {
+async function getInfo(id) {
     try {
-        const info = await companyInfoRepository.create(data);
+        const info = await companyInfoRepository.findInstitute(id);
         return info;
     } catch (error) {
-        console.log("error in companyInfoServices in creatInfo:", error.message);
+        console.log("error in companyInfoServices in getInfo:", error.message);
+    }
+}
+
+async function updateInfo(id, data) {
+    try {
+        const updatedInfo = await companyInfoRepository.update(id, data);
+        return updatedInfo;
+    } catch (error) {
+        console.log("error in companyInfoServices in updateInfo:", error.message);
     }
 }
 
@@ -21,4 +30,4 @@ async function createSocialLinks(data) {
     }
 }
 
-module.exports = {createInfo,createSocialLinks}
+module.exports = { getInfo, createSocialLinks, updateInfo }

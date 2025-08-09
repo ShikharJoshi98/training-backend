@@ -2,7 +2,7 @@ const { testimonialServices } = require("../services");
 
 async function addTestimonial(req, res) {
     try {
-        const { newJobRole, oldJobRole, studentImage, newCompany, testimonial, name } = req.body;
+        const { newJobRole, oldJobRole, studentImage, newCompany, testimonial, instituteId, name } = req.body;
 
         if (!name || !testimonial) {
             return res
@@ -13,7 +13,7 @@ async function addTestimonial(req, res) {
                 })
         }
 
-        const testimonialData = await testimonialServices.createTestimonial({ newJobRole, oldJobRole, studentImage, newCompany, testimonial, name });
+        const testimonialData = await testimonialServices.createTestimonial({ newJobRole, oldJobRole, studentImage, newCompany, testimonial, instituteId, name });
 
         return res
             .status(200)

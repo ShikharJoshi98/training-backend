@@ -2,30 +2,34 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Tutorials', {
+    await queryInterface.createTable('Chapters', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      section: {
-        allowNull: false,
+      chapter: {
         type: Sequelize.STRING
       },
-      tutorialName: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      tutorialImage: {
-        allowNull: false,
-        type: Sequelize.TEXT('long')
+      subChapter: {
+        type: Sequelize.TEXT
       },
       instituteId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: 'Institutes',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
+      },
+      tutorialId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Tutorials',
           key: 'id'
         },
         onUpdate: 'CASCADE',
@@ -42,6 +46,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Tutorials');
+    await queryInterface.dropTable('Chapters');
   }
 };

@@ -15,6 +15,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   Institute.init({
     instituteName: {type:DataTypes.STRING,allowNull:false},
+    logo: {type: DataTypes.TEXT('long')},
+    abbv: {type:DataTypes.STRING},
     password: {type:DataTypes.STRING,allowNull:false},
     email: {type:DataTypes.STRING,allowNull:false},
     phone: {type:DataTypes.STRING,allowNull:false},

@@ -17,7 +17,17 @@ module.exports = (sequelize, DataTypes) => {
     sectionName: {
       type: DataTypes.STRING,
       allowNull:false
-    }
+    },
+    instituteId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'Institutes', 
+      key: 'id'
+    },
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  }
   }, {
     sequelize,
     modelName: 'TutorialSection',

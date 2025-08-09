@@ -18,7 +18,17 @@ module.exports = (sequelize, DataTypes) => {
     linkedIn: DataTypes.STRING,
     Instagram: DataTypes.STRING,
     twitter: DataTypes.STRING,
-    youtube: DataTypes.STRING
+    youtube: DataTypes.STRING,
+    instituteId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'Institutes', 
+      key: 'id'
+    },
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  }
   }, {
     sequelize,
     modelName: 'SocialLinks',

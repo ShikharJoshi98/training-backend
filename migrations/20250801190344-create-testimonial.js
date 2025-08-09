@@ -29,6 +29,16 @@ module.exports = {
       newJobRole: {
         type: Sequelize.STRING
       },
+      instituteId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Institutes',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

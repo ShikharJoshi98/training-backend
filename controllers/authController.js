@@ -25,7 +25,9 @@ async function registerInstitue(req, res) {
             });
     } catch (error) {
         if (error.statusCode === 409) {
-            return res.status(409).json({
+            return res
+                .status(409)
+                .json({
                 success: false,
                 message: "Account for this Institute already exists. Try logging in."
             });

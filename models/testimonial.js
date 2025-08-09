@@ -19,7 +19,17 @@ module.exports = (sequelize, DataTypes) => {
     tutorialImage: { type: DataTypes.TEXT('long')},
     newCompany: DataTypes.STRING,
     oldJobRole: DataTypes.STRING,
-    newJobRole: DataTypes.STRING
+    newJobRole: DataTypes.STRING,
+    instituteId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'Institutes', 
+      key: 'id'
+    },
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  }
   }, {
     sequelize,
     modelName: 'Testimonial',

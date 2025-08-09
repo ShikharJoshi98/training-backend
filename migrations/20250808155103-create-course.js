@@ -2,38 +2,38 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('CompanyInfos', {
+    await queryInterface.createTable('Courses', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
+      course: {
+        type: Sequelize.STRING
+      },
+      courseDuration: {
+        type: Sequelize.STRING
+      },
+      jobOpportunities: {
+        type: Sequelize.STRING
+      },
+      courseInfo: {
+        type: Sequelize.TEXT
+      },
+      isTopCourse: {
+        type: Sequelize.BOOLEAN,
+        defaultValue:false
+      },
+      instituteId: {
+        type: Sequelize.INTEGER,
         allowNull: false,
-        type: Sequelize.STRING
-      },
-      logo: {
-        type: Sequelize.TEXT('long')
-      },
-      abbv: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      email: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      phone: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      altPhone: {
-        type: Sequelize.STRING
-      },
-      address: {
-        allowNull: false,
-        type: Sequelize.STRING
+        references: {
+          model: 'Institutes',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       createdAt: {
         allowNull: false,
@@ -46,6 +46,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('CompanyInfos');
+    await queryInterface.dropTable('Courses');
   }
 };

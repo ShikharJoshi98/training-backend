@@ -25,7 +25,17 @@ module.exports = (sequelize, DataTypes) => {
     tutorialImage: {
       type: DataTypes.TEXT('long'),
       allowNull: true
-    }
+    },
+    instituteId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'Institutes', 
+      key: 'id'
+    },
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  }
   }, {
     sequelize,
     modelName: 'Tutorial',

@@ -13,6 +13,12 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      logo: {
+        type: Sequelize.TEXT('long'),
+      },
+      abbv: {
+        type: Sequelize.STRING,
+      },
       password: {
         type: Sequelize.STRING,
         allowNull: false,

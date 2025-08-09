@@ -3,7 +3,7 @@ const { JWT_SECRET } = require("../config");
 
 function verifyToken(req, res, next) {
     const token = req.cookies.token;
-
+    
     if (!token) {
         return res
             .status(400)
@@ -15,7 +15,7 @@ function verifyToken(req, res, next) {
 
     try {
         const decode = jwt.verify(token, JWT_SECRET);
-
+        
         if (!decode) {
             return res
                 .status(400)
@@ -24,9 +24,9 @@ function verifyToken(req, res, next) {
                     message: "Unauthorized - invalid token"
                 });
         }
-
+        
         req.instituteName = decode.instituteName;
-
+        console.log(req.instituteName)
         next();
 
     } catch (error) {
@@ -34,6 +34,7 @@ function verifyToken(req, res, next) {
             .status(500)
             .json({
                 success: false,
+                message:"error here",
                 message: error.message
             });
     }
