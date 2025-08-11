@@ -89,8 +89,9 @@ async function updateInstitute(req, res) {
 async function addSocialLinks(req, res) {
     try {
         const { facebook, linkedIn, Instagram, twitter, youtube, instituteId } = req.body;
-
-        const socialInfo = await companyInfoServices.createSocialLinks({ facebook, linkedIn, Instagram, twitter, youtube, instituteId });
+        const { id, } = req.params;
+        console.log('hit')
+        const socialInfo = await companyInfoServices.createSocialLinks("instituteId",{ facebook, linkedIn, Instagram, twitter, youtube, instituteId },id);
 
         return res
             .status(200)
@@ -109,8 +110,41 @@ async function addSocialLinks(req, res) {
     }
 }
 
+async function getSocialLinks(req, res) {
+    try {
+        const { id } = req.params;
+
+        if (!id) {
+            return res
+                .status(400)
+                .json({
+                    success: false,
+                    message: "Missing required fields"
+                });
+        }
+
+        const socialLinks = await companyInfoServices.getSocialLinks(id);
+
+        return res
+            .status(200)
+            .json({
+                message: "Company info fetched Successfully",
+                success: true,
+                socialLinks
+            })
+    } catch (error) {
+        return res
+            .status(500)
+            .json({
+                success: false,
+                message: error.message
+            });
+    }
+}
+
 module.exports = {
     getCompanyInfo,
     addSocialLinks,
-    updateInstitute
+    updateInstitute,
+    getSocialLinks
 }

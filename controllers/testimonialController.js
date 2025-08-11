@@ -3,7 +3,6 @@ const { testimonialServices } = require("../services");
 async function addTestimonial(req, res) {
     try {
         const { newJobRole, oldJobRole, studentImage, newCompany, testimonial, instituteId, name } = req.body;
-
         if (!name || !testimonial) {
             return res
                 .status(400)

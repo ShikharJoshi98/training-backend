@@ -21,13 +21,30 @@ async function updateInfo(id, data) {
     }
 }
 
-async function createSocialLinks(data) {
+async function createSocialLinks(instituteId,data,id) {
     try {
-        const info = await socialLinksRepository.create(data);
-        return info;
+        const isInstitute = await socialLinksRepository.findInstitute(id);
+        
+        if (isInstitute) {
+            const updateSocial = await socialLinksRepository.updateByType(instituteId, data, id);
+
+            return updateSocial;
+        }
+        const addSocial = await socialLinksRepository.create(data);
+        return addSocial;
+        
     } catch (error) {
         console.log("error in companyInfoServices in createSocialLinks:", error.message);
     }
 }
 
-module.exports = { getInfo, createSocialLinks, updateInfo }
+async function getSocialLinks(id) {
+    try {
+        const info = await socialLinksRepository.get(id);
+        return info;
+    } catch (error) {
+        console.log("error in companyInfoServices in getSocialLinks:", error.message);
+    }
+}
+
+module.exports = { getInfo, createSocialLinks, updateInfo, getSocialLinks }

@@ -21,6 +21,12 @@ class SocialLinksRepository extends CrudRepository {
     constructor() {
         super(SocialLinks)
     }
+    async findInstitute(id) {
+        const response = await this.model.findOne({
+                where: { instituteId:id }
+        });
+        return response;
+    }
 }
 
 module.exports = { CompanyInfoRepository, SocialLinksRepository };

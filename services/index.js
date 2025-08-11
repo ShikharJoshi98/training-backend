@@ -3,5 +3,5 @@ module.exports = {
     testimonialServices: require("./testimonialServices"),
     tutorialServices: require("./tutorialServices"),
     authServices: require("./authServices"),
-    courseServices: require("./courseServices")
+    courseServices: require("./courseServices"),
 }

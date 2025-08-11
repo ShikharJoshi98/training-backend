@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   Testimonial.init({
     name: {type:DataTypes.STRING,allowNull: false},
     testimonial: { type: DataTypes.STRING, allowNull: false },
-    tutorialImage: { type: DataTypes.TEXT('long')},
+    studentImage: { type: DataTypes.TEXT('long')},
     newCompany: DataTypes.STRING,
     oldJobRole: DataTypes.STRING,
     newJobRole: DataTypes.STRING,

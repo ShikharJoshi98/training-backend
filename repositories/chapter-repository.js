@@ -6,10 +6,10 @@ class ChapterRepository extends CrudRepository{
         super(Chapter)
     }
 
-    async findChapter(instituteId, tutorialId) {
+    async findChapter(instituteId) {
         try {
-            const response = await this.model.findOne({
-                where: { instituteId,tutorialId }
+            const response = await this.model.findAll({
+                where: { instituteId }
             });
 
             return response;

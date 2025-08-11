@@ -29,6 +29,26 @@ async function addTutorial(req, res) {
     }
 }
 
+async function getTutorials(req, res) {
+    try {
+        const tutorials = await tutorialServices.getTutorials(req.params.id);
+        return res
+            .status(200)
+            .json({
+                success: true,
+                message: "Fetched All tutorials",
+                tutorials
+            });
+    } catch (error) {
+        return res
+            .status(500)
+            .json({
+                success: false,
+                message: error.message
+            });
+    }
+}
+
 async function addSection(req, res) {
     try {
         const { sectionName, instituteId } = req.body;
@@ -58,10 +78,31 @@ async function addSection(req, res) {
     }
 }
 
+async function getTutorialSection(req, res) {
+    try {
+        const { id } = req.params;
+        const tutorialSections = await tutorialServices.getTutorialSection('instituteId', id);
+        return res
+            .status(200)
+            .json({
+                success: true,
+                message: "Successfully fetched tutorial section",
+                tutorialSections
+            });
+    } catch (error) {
+        return res
+            .status(500)
+            .json({
+                success: false,
+                message: error.message
+            });
+    }
+}
+
 async function addTutorialChapter(req, res) {
     try {
-        const { chapter, subChapter, instituteId, tutorialId } = req.body;
-
+        const { chapter, instituteId, tutorialId } = req.body;
+        
         if (!chapter) {
             return res
                 .status(400)
@@ -71,7 +112,7 @@ async function addTutorialChapter(req, res) {
                 });
         }
 
-        const chapterInfo = await tutorialServices.addChapter({ chapter, subChapter, instituteId, tutorialId });
+        const chapterInfo = await tutorialServices.addChapter({ chapter, instituteId, tutorialId });
 
         return res
             .status(200)
@@ -92,9 +133,9 @@ async function addTutorialChapter(req, res) {
 
 async function getChapterInfo(req, res) {
     try {
-        const { tutorialId, instituteId } = req.params;
+        const { instituteId } = req.params;
 
-        const chapterInfo = await tutorialServices.getChapter(instituteId, tutorialId);
+        const chapterInfo = await tutorialServices.getChapter(instituteId);
 
         return res
             .status(200)
@@ -113,9 +154,31 @@ async function getChapterInfo(req, res) {
     }
 }
 
+async function updateSubChapters(req,res) {
+    try {
+        const chapter = await tutorialServices.addSubChapter(req.params.id,req.body.data);
+        return res
+            .status(200)
+            .json({
+                success: true,
+                chapter
+            });
+    } catch (error) {
+        return res
+            .status(500)
+            .json({
+                success: false,
+                message: error.message
+            });
+    }
+}
+
 module.exports = {
     addTutorial,
     addSection,
     addTutorialChapter,
-    getChapterInfo
+    getChapterInfo,
+    getTutorialSection,
+    getTutorials,
+    updateSubChapters
 };

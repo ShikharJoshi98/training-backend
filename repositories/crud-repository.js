@@ -57,6 +57,28 @@ class CrudRepository{
             console.log("Error in update in crud repo:", error.message);
         }
     }
+
+    async updateByType(fieldName, data, fieldValue) {
+        try {
+            const response = await this.model.update(data, {
+            where: { [fieldName]: fieldValue }
+            });
+            return response;
+        } catch (error) {
+            console.log("Error in updateByType in crud repo:", error.message);
+        }
+    }
+
+    async getByType(fieldName, fieldValue) {
+        try {
+            const response = await this.model.findAll({
+            where: { [fieldName]: fieldValue }
+            });
+            return response;
+        } catch (error) {
+            console.log("Error in updateByType in crud repo:", error.message);
+        }
+    }
 }
 
 module.exports = CrudRepository;

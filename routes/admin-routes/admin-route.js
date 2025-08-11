@@ -5,7 +5,8 @@ const router = express.Router();
 
 //training-info
 router.get('/getInstituteInfo/:id', companyController.getCompanyInfo);
-router.post('/addSocialInfo', companyController.addSocialLinks);
+router.get('/getSocialInfo/:id', companyController.getSocialLinks);
+router.patch('/addSocialInfo/:id', companyController.addSocialLinks);
 router.patch('/updateInstituteInfo/:id', companyController.updateInstitute);
 
 //testimonial
@@ -13,9 +14,13 @@ router.post('/addTestimonial', testimonialController.addTestimonial);
 
 //Tutorials
 router.post('/addTutorial', tutorialController.addTutorial);
+router.get('/getTutorials/:id', tutorialController.getTutorials);
 router.post('/addTutorialSection', tutorialController.addSection);
+router.get('/getTutorialSection/:id', tutorialController.getTutorialSection);
 router.post('/addTutorialChapter', tutorialController.addTutorialChapter);
-router.get('/getChapterInfo/:tutorialId/:instituteId', tutorialController.getChapterInfo);
+router.get('/getChapterInfo/:instituteId', tutorialController.getChapterInfo);
+router.post('/addSubChapter/:id', tutorialController.updateSubChapters)
+// router.get('/getSubChapter/:id')
 
 //Courses
 router.post('/addCourse', courseController.addCourseDetails);
