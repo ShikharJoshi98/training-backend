@@ -20,11 +20,13 @@ router.get('/getTutorialSection/:id', tutorialController.getTutorialSection);
 router.post('/addTutorialChapter', tutorialController.addTutorialChapter);
 router.get('/getChapterInfo/:instituteId', tutorialController.getChapterInfo);
 router.post('/addSubChapter/:id', tutorialController.updateSubChapters)
-// router.get('/getSubChapter/:id')
 
 //Courses
 router.post('/addCourse', courseController.addCourseDetails);
+router.get('/getCourses/:id', courseController.getCourseDetails);
+router.post('/addTopic', courseController.addCourseTopic);
 
-
+//Upcoming Batches
+router.post('/addUpcomingBatch', courseController.createUpcomingBatches);
 
 module.exports = router;

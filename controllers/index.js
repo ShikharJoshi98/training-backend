@@ -3,5 +3,5 @@ module.exports = {
     testimonialController: require("./testimonialController"),
     tutorialController: require("./tutorialController"),
     authController: require("./authController"),
-    courseController: require("./CourseController"),
+    courseController: require("./courseController"),
 }

@@ -15,7 +15,9 @@ module.exports = (sequelize, DataTypes) => {
   }
   Course.init({
     course: {type:DataTypes.STRING, allowNull:false},
-    courseDuration: {type:DataTypes.STRING, allowNull:false},
+    courseDuration: { type: DataTypes.STRING, allowNull: false },
+    courseImage: { type: DataTypes.TEXT('long') }, 
+    courseLogo: { type: DataTypes.TEXT('long')},
     jobOpportunities: {type:DataTypes.STRING, allowNull:false},
     courseInfo: { type: DataTypes.TEXT, allowNull: false },
     isTopCourse: { type: DataTypes.BOOLEAN, defaultValue: false },

@@ -2,40 +2,34 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Courses', {
+    await queryInterface.createTable('Curriculums', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      course: {
+      topic: {
         type: Sequelize.STRING
       },
-      courseDuration: {
-        type: Sequelize.STRING
-      },
-      courseImage: {
-        type: Sequelize.TEXT('long')
-      },
-      courseLogo: {
-        type: Sequelize.TEXT('long')
-      },
-      jobOpportunities: {
-        type: Sequelize.STRING
-      },
-      courseInfo: {
+      subChapter: {
         type: Sequelize.TEXT
-      },
-      isTopCourse: {
-        type: Sequelize.BOOLEAN,
-        defaultValue:false
       },
       instituteId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: 'Institutes',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
+      },
+      tutorialId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Tutorials',
           key: 'id'
         },
         onUpdate: 'CASCADE',
@@ -52,6 +46,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Courses');
+    await queryInterface.dropTable('Curriculums');
   }
 };

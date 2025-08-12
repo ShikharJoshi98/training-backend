@@ -2,34 +2,27 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Courses', {
+    await queryInterface.createTable('UpcomingBatches', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      course: {
+      batch: {
         type: Sequelize.STRING
       },
-      courseDuration: {
+      startingDate: {
         type: Sequelize.STRING
       },
-      courseImage: {
-        type: Sequelize.TEXT('long')
-      },
-      courseLogo: {
-        type: Sequelize.TEXT('long')
-      },
-      jobOpportunities: {
+      timing: {
         type: Sequelize.STRING
       },
-      courseInfo: {
-        type: Sequelize.TEXT
+      type: {
+        type: Sequelize.STRING
       },
-      isTopCourse: {
-        type: Sequelize.BOOLEAN,
-        defaultValue:false
+      classDays: {
+        type: Sequelize.STRING
       },
       instituteId: {
         type: Sequelize.INTEGER,
@@ -52,6 +45,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Courses');
+    await queryInterface.dropTable('UpcomingBatches');
   }
 };

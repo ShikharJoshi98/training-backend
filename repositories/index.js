@@ -9,5 +9,7 @@ module.exports = {
     TutorialSectionRepository: require("./tutorialSection-repository"),
     AuthRepository: require("./auth-repository"),
     ChapterRepository: require("./chapter-repository"),
-    CourseRepository: require("./course-repository")
+    CourseRepository: require("./course-repository"),
+    UpcomingBatchesRepository: require("./upcomingBatches-repository"),
+    CurriculumRepository: require("./curriculum-repository")
 }
