@@ -12,7 +12,7 @@ module.exports = {
       topic: {
         type: Sequelize.STRING
       },
-      subChapter: {
+      subTopic: {
         type: Sequelize.TEXT
       },
       instituteId: {
@@ -25,7 +25,7 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       },
-      tutorialId: {
+      courseId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {

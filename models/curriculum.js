@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     subTopic: {
       type: DataTypes.TEXT,
       get() {
-        const rawValue = this.getDataValue('subChapter');
+        const rawValue = this.getDataValue('subTopic');
         if (!rawValue) return [];
         return rawValue
           .replace(/^\[|\]$/g, '')
@@ -27,11 +27,11 @@ module.exports = (sequelize, DataTypes) => {
       },
       set(value) {
         if (Array.isArray(value)) {
-          this.setDataValue('subChapter', `[${value.join(',')}]`);
+          this.setDataValue('subTopic', `[${value.join(',')}]`);
         } else if (typeof value === 'string') {
-          this.setDataValue('subChapter', value);
+          this.setDataValue('subTopic', value);
         } else {
-          this.setDataValue('subChapter', '[]'); 
+          this.setDataValue('subTopic', '[]'); 
         }
       }
     },
@@ -45,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE'
     },
-    tutorialId: {
+    courseId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {

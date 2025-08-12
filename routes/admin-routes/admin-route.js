@@ -25,6 +25,9 @@ router.post('/addSubChapter/:id', tutorialController.updateSubChapters)
 router.post('/addCourse', courseController.addCourseDetails);
 router.get('/getCourses/:id', courseController.getCourseDetails);
 router.post('/addTopic', courseController.addCourseTopic);
+router.get('/getTopicInfo/:instituteId', courseController.getTopicInfo);
+router.post('/addSubTopic/:id', courseController.updateSubTopics);
+router.patch('/selectTopCourse/:id', courseController.selectTopCourse);
 
 //Upcoming Batches
 router.post('/addUpcomingBatch', courseController.createUpcomingBatches);

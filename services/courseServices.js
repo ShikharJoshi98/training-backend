@@ -40,9 +40,47 @@ async function addTopic(data) {
     }
 }
 
+async function getTopic(instituteId) {
+    try {
+        const response = await curriculumRepository.findTopic(instituteId);
+        return response;
+    } catch (error) {
+        console.log("Error in getTopic in course services", error.message);
+    }
+}
+
+async function addSubTopic(id,data) {
+    try {
+        const response = await curriculumRepository.get(id);
+        const updatedSubTopics = response?.subTopic;
+        updatedSubTopics.push(data);
+
+        response.subTopic = updatedSubTopics;
+        await response.save();
+        
+        return response;
+    } catch (error) {
+        console.log("Error in addSubTopic in course services", error.message);
+    }
+}
+
+async function selectTopCourse(id,courseIds) {
+    try {
+        await courseRepository.updateByType("instituteId", {isTopCourse: false}, id);
+        const response = await courseRepository.selectTopCourse(courseIds.courseIds, id);
+        
+        return response;
+    } catch (error) {
+        console.log("Error in selectTopCourse in course services", error.message);
+    }
+}
+
 module.exports = {
     addCourse,
     getAllCourses,
     addUpcomingBatches,
-    addTopic
+    addTopic,
+    getTopic,
+    addSubTopic,
+    selectTopCourse
 }

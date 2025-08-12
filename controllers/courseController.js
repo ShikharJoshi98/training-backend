@@ -91,9 +91,73 @@ async function addCourseTopic(req, res) {
     }
 }
 
+async function getTopicInfo(req, res) {
+    try {
+        const { instituteId } = req.params;
+
+        const topicInfo = await courseServices.getTopic(instituteId);
+
+        return res
+            .status(200)
+            .json({
+                success: true,
+                message: "chapter fetched successfully",
+                topicInfo
+            });
+    } catch (error) {
+        return res
+            .status(500)
+            .json({
+                success: false,
+                message: error.message
+            });
+    }
+}
+
+async function updateSubTopics(req,res) {
+    try {
+        const topic = await courseServices.addSubTopic(req.params.id, req.body.data);
+        return res
+            .status(200)
+            .json({
+                success: true,
+                topic
+            });
+    } catch (error) {
+        return res
+            .status(500)
+            .json({
+                success: false,
+                message: error.message
+            });
+    }
+}
+
+async function selectTopCourse(req,res) {
+    try {
+        const topic = await courseServices.selectTopCourse(req.params.id,req.body.courseIds);
+        return res
+            .status(200)
+            .json({
+                success: true,
+                topic
+            });
+    } catch (error) {
+        return res
+            .status(500)
+            .json({
+                success: false,
+                message: error.message
+            });
+    }
+}
+
 module.exports = {
     addCourseDetails,
     getCourseDetails,
     createUpcomingBatches,
-    addCourseTopic
+    addCourseTopic,
+    getTopicInfo,
+    updateSubTopics,
+    selectTopCourse
 }
