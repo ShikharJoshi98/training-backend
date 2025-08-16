@@ -40,6 +40,15 @@ async function getTutorials(id) {
     }
 }
 
+async function deleteTutorial(id) {
+    try {
+        const response = await tutorialRepository.destroy(id);
+        return response;
+    } catch (error) {
+        console.log("Error in deleteTutorial in tutorialServices", error.message);
+    }
+}
+
 async function addChapter(data) {
     try {
         const response = await chapterRepository.create(data);
@@ -58,6 +67,24 @@ async function getChapter(instituteId) {
     }
 }
 
+async function editChapter(id, data) {
+    try {
+        const response = await chapterRepository.update(id, data);
+        return response;
+    } catch (error) {
+        console.log("Error in editChapter in tutorial services", error.message);
+    }
+}
+
+async function deleteChapter(id) {
+    try {
+        const response = await chapterRepository.destroy(id);
+        return response;
+    } catch (error) {
+        console.log("Error in deleteChapter in tutorial services", error.message);
+    }
+}
+
 async function addSubChapter(id,data) {
     try {
         const response = await chapterRepository.get(id);
@@ -73,13 +100,41 @@ async function addSubChapter(id,data) {
     }
 }
 
+async function deleteSubChapter(id, index) {
+  try {
+    const response = await chapterRepository.get(id);
+    if (!response) throw new Error("Chapter not found");
+
+    let updated = [...response.subChapter];
+
+    if (index < 0 || index >= updated.length) {
+      throw new Error("Index out of bounds");
+    }
+
+    updated = updated.filter((_, i) => i !== index);
+
+    response.subChapter = updated.length > 0 ? updated : null;
+     console.log(response.subChapter); 
+    await response.save();
+
+    return response;
+  } catch (error) {
+    console.error("Error deleteSubChapter in tutorial Services", error.message);
+    throw error;
+  }
+}
+
 
 module.exports = {
     createTutorial,
     createSection,
     addChapter,
     getChapter,
+    editChapter,
+    deleteChapter,
     getTutorialSection,
     getTutorials,
-    addSubChapter
+    deleteTutorial,
+    addSubChapter,
+    deleteSubChapter
 };

@@ -12,7 +12,7 @@ class CourseRepository extends CrudRepository {
                 { where: { id: ids, instituteId } }
             );
         } catch (error) {
-
+            console.log("Error in selectTopCourse in courserepo",error.message)
         }
     }
 }

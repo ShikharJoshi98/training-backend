@@ -9,16 +9,25 @@ async function addCourse(data) {
         const response = await courseRepository.create(data);
         return response;
     } catch (error) {
-        console.log("Error in addCourse in course services",error.message);
+        console.log("Error in addCourse in course services", error.message);
     }
 }
 
-async function getAllCourses(instituteId,id) {
+async function getAllCourses(instituteId, id) {
     try {
         const response = await courseRepository.getByType(instituteId, id);
         return response;
     } catch (error) {
-        console.log("Error in getAllCourses in course services",error.message);
+        console.log("Error in getAllCourses in course services", error.message);
+    }
+}
+
+async function deleteCourse(id) {
+    try {
+        const response = await courseRepository.destroy(id);
+        return response;
+    } catch (error) {
+        console.log("error in deleteAllCourses in course services", error.message);
     }
 }
 
@@ -27,7 +36,7 @@ async function addUpcomingBatches(data) {
         const response = await upcomingBatchesRepository.create(data);
         return response;
     } catch (error) {
-        console.log("Error in addUpcomingBatches in course services",error.message);
+        console.log("Error in addUpcomingBatches in course services", error.message);
     }
 }
 
@@ -49,7 +58,25 @@ async function getTopic(instituteId) {
     }
 }
 
-async function addSubTopic(id,data) {
+async function editTopic(id, data) {
+    try {
+        const response = await curriculumRepository.update(id, data);
+        return response;
+    } catch (error) {
+        console.log("Error in editTopic in course services", error.message);
+    }
+}
+
+async function deleteTopic(id) {
+    try {
+        const response = await curriculumRepository.destroy(id);
+        return response;
+    } catch (error) {
+        console.log("Error in deleteTopic in course services", error.message);
+    }
+}
+
+async function addSubTopic(id, data) {
     try {
         const response = await curriculumRepository.get(id);
         const updatedSubTopics = response?.subTopic;
@@ -57,21 +84,74 @@ async function addSubTopic(id,data) {
 
         response.subTopic = updatedSubTopics;
         await response.save();
-        
+
         return response;
     } catch (error) {
         console.log("Error in addSubTopic in course services", error.message);
     }
 }
 
-async function selectTopCourse(id,courseIds) {
+async function updateSubTopic(id, index, data) {
     try {
-        await courseRepository.updateByType("instituteId", {isTopCourse: false}, id);
-        const response = await courseRepository.selectTopCourse(courseIds.courseIds, id);
-        
+        const response = await curriculumRepository.get(id);
+        const updated = [...response.subTopic];
+        updated[index] = data;
+        response.subTopic = updated;
+        await response.save();
         return response;
     } catch (error) {
         console.log("Error in selectTopCourse in course services", error.message);
+    }
+}
+
+async function deleteSubTopic(id, index) {
+  try {
+    const response = await curriculumRepository.get(id);
+    if (!response) throw new Error("Curriculum not found");
+
+    const updated = [...response.subTopic];
+    if (index < 0 || index >= updated.length) {
+      throw new Error("Index out of bounds");
+    }
+
+    updated.splice(index, 1);
+    response.subTopic = updated;
+    await response.save();
+
+    return response;
+  } catch (error) {
+    console.error("Error deleting subtopic:", error.message);
+    throw error;
+  }
+}
+
+
+async function selectTopCourse(id, courseIds) {
+    try {
+        await courseRepository.updateByType("instituteId", { isTopCourse: false }, id);
+        const response = await courseRepository.selectTopCourse(courseIds.courseIds, id);
+
+        return response;
+    } catch (error) {
+        console.log("Error in selectTopCourse in course services", error.message);
+    }
+}
+
+async function getUpcomingBatches(id) {
+    try {
+        const response = await upcomingBatchesRepository.getByType('instituteId', id);
+        return response;
+    } catch (error) {
+        console.log("Error in getUpcomingBatches in course services", error.message);
+    }
+}
+
+async function deteteUpcomingBatches(id) {
+    try {
+        const response = await upcomingBatchesRepository.destroy(id);
+        return response;
+    } catch (error) {
+        console.log("Error in deteteUpcomingBatches in course services", error.message)
     }
 }
 
@@ -81,6 +161,13 @@ module.exports = {
     addUpcomingBatches,
     addTopic,
     getTopic,
+    editTopic,
+    deleteTopic,
     addSubTopic,
-    selectTopCourse
+    updateSubTopic,
+    deleteSubTopic,
+    selectTopCourse,
+    getUpcomingBatches,
+    deteteUpcomingBatches,
+    deleteCourse
 }

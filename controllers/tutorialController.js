@@ -154,6 +154,70 @@ async function getChapterInfo(req, res) {
     }
 }
 
+async function editChapterInfo(req, res) {
+    try {
+        console.log(req.body.newChapter)
+        const updatedTopic = await tutorialServices.editChapter(req.params.id, { chapter: req.body.newChapter });
+        return res
+            .status(200)
+            .json({
+                success: true,
+                message: "Updated Chapter Successfully",
+                updatedTopic
+            });
+    } catch (error) {
+       return res
+            .status(500)
+            .json({
+                success: false,
+                message: error.message
+            });
+    }
+}
+
+async function deleteChapter(req,res) {
+    try {
+        const chapter = await tutorialServices.deleteChapter(req.params.id);
+        return res
+            .status(200)
+            .json({
+                success: true,
+                message: "Deleted chapter successfully",
+                chapter
+            });
+    } catch (error) {
+        return res
+            .status(500)
+            .json({
+                success: false,
+                message: error.message
+            });
+    }
+}
+
+async function deleteTutorial(req, res) {
+    try {
+        const { id } = req.params;
+
+        const tutorial = await tutorialServices.deleteTutorial(id);
+
+        return res
+            .status(200)
+            .json({
+                success: true,
+                message: "Tutorial deleted successfully",
+                tutorial
+            });
+    } catch (error) {
+        return res
+            .status(500)
+            .json({
+                success: false,
+                message: error.message
+            });
+    }
+}
+
 async function updateSubChapters(req,res) {
     try {
         const chapter = await tutorialServices.addSubChapter(req.params.id,req.body.data);
@@ -173,12 +237,37 @@ async function updateSubChapters(req,res) {
     }
 }
 
+async function deleteSubChapter(req, res) {
+    try {
+        const subChapter = await tutorialServices.deleteSubChapter(req.params.id, req.body.index);
+        return res
+            .status(200)
+            .json({
+                success: true,
+                message: "successfully deleted",
+                subChapter
+            });
+    } catch (error) {
+        return res
+            .status(500)
+            .json({
+                success: false,
+                message: error.message
+            });
+    }
+}
+
+
 module.exports = {
     addTutorial,
     addSection,
     addTutorialChapter,
     getChapterInfo,
+    editChapterInfo,
+    deleteChapter,
     getTutorialSection,
     getTutorials,
-    updateSubChapters
+    deleteTutorial,
+    updateSubChapters,
+    deleteSubChapter
 };

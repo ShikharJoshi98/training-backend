@@ -22,19 +22,27 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       get() {
         const rawValue = this.getDataValue('subChapter');
-        if (!rawValue) return [];
-        return rawValue
+        if (!rawValue || rawValue === '[]') return [];
+
+        const parsed = rawValue
           .replace(/^\[|\]$/g, '')
           .split(',')
-          .map(str => str.trim());
+          .map(str => str.trim())
+          .filter(str => str !== ''); // remove empty strings
+
+        return parsed;
       },
       set(value) {
         if (Array.isArray(value)) {
-          this.setDataValue('subChapter', `[${value.join(',')}]`);
+          if (value.length === 0) {
+            this.setDataValue('subChapter', '[]'); // store empty array properly
+          } else {
+            this.setDataValue('subChapter', `[${value.join(',')}]`);
+          }
         } else if (typeof value === 'string') {
           this.setDataValue('subChapter', value);
         } else {
-          this.setDataValue('subChapter', '[]'); 
+          this.setDataValue('subChapter', '[]');
         }
       }
     },
