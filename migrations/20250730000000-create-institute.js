@@ -13,6 +13,14 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      username: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      role: {
+        type: Sequelize.STRING,
+        defaultValue: 'user'
+      },
       logo: {
         type: Sequelize.TEXT('long'),
       },
@@ -25,18 +33,15 @@ module.exports = {
       },
       email: {
         type: Sequelize.STRING,
-        allowNull: false,
       },
       phone: {
         type: Sequelize.STRING,
-        allowNull: false,
       },
       altPhone: {
         type: Sequelize.STRING
       },
       address: {
         type: Sequelize.STRING,
-        allowNull: false,
       },
       createdAt: {
         allowNull: false,

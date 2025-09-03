@@ -1,13 +1,18 @@
 const express = require("express");
-const { PORT, FRONTEND_URL } = require("./config");
+const { PORT, FRONTEND_URL,NEXT_FRONTEND_URL } = require("./config");
 const apiRoutes = require("./routes");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
 const app = express();
 
-app.use(cors({
-  origin: FRONTEND_URL, 
+const allowedOrigins = [
+  NEXT_FRONTEND_URL,
+  FRONTEND_URL
+];
+
+app.use(cors({  
+  origin:true,
   credentials: true                
 }));
 app.use(cookieParser());

@@ -10,5 +10,6 @@ module.exports = {
     DB_PASSWORD: process.env.DB_PASSWORD,
     DB_DATABASE: process.env.DB_DATABASE,
     DB_HOST: process.env.DB_HOST,
-    FRONTEND_URL: process.env.FRONTEND_URL
+    FRONTEND_URL: process.env.FRONTEND_URL,
+    NEXT_FRONTEND_URL: process.env.NEXT_FRONTEND_URL
 };

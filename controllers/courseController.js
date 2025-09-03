@@ -1,12 +1,52 @@
 const { courseServices } = require("../services");
 
+async function addCourseCategory(req,res) {
+    try {
+        const courseCategory = await courseServices.addCourseCategory(req.body);
+        return res
+            .status(200)
+            .json({
+                success: true,
+                message: "Added Course Category",
+                courseCategory
+            });
+    } catch (error) {
+        return res
+            .status(500)
+            .json({
+                success: false,
+                message: error.message
+            });
+    }
+}
+
+async function fetchCourseCategory(req,res) {
+    try {
+        const categories = await courseServices.getCourseCategory(req.params.id);
+        return res
+            .status(200)
+            .json({
+                success: true,
+                message: "Fetched Course Categories",
+                categories
+            });
+    } catch (error) {
+        return res
+            .status(500)
+            .json({
+                success: false,
+                message: error.message
+            });
+    }
+}
+
 async function addCourseDetails(req, res) {
     try {
         const course = await courseServices.addCourse(req.body);
         return res
             .status(200)
             .json({
-                success: false,
+                success: true,
                 message: "Added Course Details",
                 course
             });
@@ -40,6 +80,26 @@ async function getCourseDetails(req, res) {
     }
 }
 
+async function getCourse(req,res) {
+     try {
+        const course = await courseServices.getCourse(req.params.id);
+        return res
+            .status(200)
+            .json({
+                success: true,
+                message: "Course fetched successfully",
+                course
+            });
+    } catch (error) {
+        return res
+            .status(500)
+            .json({
+                success: false,
+                message: error.message
+            });
+    }
+}
+
 async function deleteCourse(req, res) {
     try {
         const course = await courseServices.deleteCourse(req.params.id);
@@ -62,12 +122,12 @@ async function deleteCourse(req, res) {
 
 async function createUpcomingBatches(req, res) {
     try {
-        const upcomingBatch = await courseServices.addUpcomingBatches(req.body);
+        const upcomingBatch = await courseServices.addUpcomingBatches({ ...req.body.upcomingBatchFormValues, instituteId: req.params.id });
         return res
             .status(200)
             .json({
                 success: true,
-                message: "Batch Added Successfully",
+                message: "Created Batch Successfully",
                 upcomingBatch
             });
     } catch (error) {
@@ -124,8 +184,8 @@ async function deleteUpcomingBatches(req, res) {
 
 async function addCourseTopic(req, res) {
     try {
-
-        if (!req.body.topic) {
+        console.log(req.body);
+        if (!req.body) {
             return res
                 .status(400)
                 .json({
@@ -216,6 +276,26 @@ async function deleteTopic(req,res) {
     }
 }
 
+async function getCourseCurriculum(req,res) {
+    try {
+        const curriculum = await courseServices.fetchCourseCurriculum(req.params.courseId, req.params.instituteId);
+        return res
+            .status(200)
+            .json({
+                success: true,
+                message: 'Fetched Curriculum Successfully',
+                curriculum
+            });
+    } catch (error) {
+        return res
+            .status(500)
+            .json({
+                success: false,
+                message: error.message
+            });
+    }
+}
+
 async function updateSubTopics(req, res) {
     try {
         const topic = await courseServices.addSubTopic(req.params.id, req.body.data);
@@ -295,8 +375,11 @@ async function selectTopCourse(req, res) {
 }
 
 module.exports = {
+    addCourseCategory,
+    fetchCourseCategory,
     addCourseDetails,
     getCourseDetails,
+    getCourse,
     createUpcomingBatches,
     addCourseTopic,
     getTopicInfo,
@@ -308,5 +391,6 @@ module.exports = {
     selectTopCourse,
     getUpcomingBatches,
     deleteUpcomingBatches,
-    deleteCourse
+    deleteCourse,
+    getCourseCurriculum
 }

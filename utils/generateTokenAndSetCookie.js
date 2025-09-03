@@ -1,9 +1,9 @@
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../config");
 
-function generateTokenAndSetCookie(instituteName) {
+function generateTokenAndSetCookie(username,role) {
    
-    const token = jwt.sign({ instituteName }, JWT_SECRET, {
+    const token = jwt.sign({ username,role }, JWT_SECRET, {
         expiresIn: "7d"
     });
     

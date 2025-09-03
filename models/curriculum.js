@@ -19,19 +19,27 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       get() {
         const rawValue = this.getDataValue('subTopic');
-        if (!rawValue) return [];
-        return rawValue
+        if (!rawValue || rawValue === '[]') return [];
+
+        const parsed = rawValue
           .replace(/^\[|\]$/g, '')
           .split(',')
-          .map(str => str.trim());
+          .map(str => str.trim())
+          .filter(str => str !== ''); 
+
+        return parsed;
       },
       set(value) {
         if (Array.isArray(value)) {
-          this.setDataValue('subTopic', `[${value.join(',')}]`);
+          if (value.length === 0) {
+            this.setDataValue('subTopic', '[]');
+          } else {
+            this.setDataValue('subTopic', `[${value.join(',')}]`);
+          }
         } else if (typeof value === 'string') {
           this.setDataValue('subTopic', value);
         } else {
-          this.setDataValue('subTopic', '[]'); 
+          this.setDataValue('subTopic', '[]');
         }
       }
     },
@@ -49,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'Tutorials',
+        model: 'Courses',
         key: 'id'
       },
       onDelete: 'CASCADE',

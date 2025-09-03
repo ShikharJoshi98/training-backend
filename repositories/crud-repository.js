@@ -1,6 +1,6 @@
 const { where } = require("sequelize");
 
-class CrudRepository{
+class CrudRepository {
     constructor(model) {
         this.model = model;
     }
@@ -61,7 +61,7 @@ class CrudRepository{
     async updateByType(fieldName, data, fieldValue) {
         try {
             const response = await this.model.update(data, {
-            where: { [fieldName]: fieldValue }
+                where: { [fieldName]: fieldValue }
             });
             return response;
         } catch (error) {
@@ -72,11 +72,23 @@ class CrudRepository{
     async getByType(fieldName, fieldValue) {
         try {
             const response = await this.model.findAll({
-            where: { [fieldName]: fieldValue }
+                where: { [fieldName]: fieldValue },
+             
             });
             return response;
         } catch (error) {
             console.log("Error in updateByType in crud repo:", error.message);
+        }
+    }
+
+    async getOne(fieldName, fieldValue) {
+        try {
+            const response = await this.model.findOne({
+                where: { [fieldName]: fieldValue },
+            });
+            return response;
+        } catch (error) {
+            console.log("Error in getOne in crud repo:", error.message);
         }
     }
 }

@@ -100,6 +100,19 @@ async function addSubChapter(id,data) {
     }
 }
 
+async function updateSubChapter(id, index, data) {
+    try {
+        const response = await chapterRepository.get(id);
+        const updated = [...response.subChapter];
+        updated[index] = data;
+        response.subChapter = updated;
+        await response.save();
+        return response;
+    } catch (error) {
+        console.log("Error in selectTopCourse in course services", error.message);
+    }
+}
+
 async function deleteSubChapter(id, index) {
   try {
     const response = await chapterRepository.get(id);
@@ -136,5 +149,6 @@ module.exports = {
     getTutorials,
     deleteTutorial,
     addSubChapter,
+    updateSubChapter,
     deleteSubChapter
 };

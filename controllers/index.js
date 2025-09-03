@@ -4,4 +4,7 @@ module.exports = {
     tutorialController: require("./tutorialController"),
     authController: require("./authController"),
     courseController: require("./courseController"),
+    tenantController: require("./tenantController"),
+    superAdminController: require("./superAdminController"),
+    landingPageController: require("./landingPageController")
 }

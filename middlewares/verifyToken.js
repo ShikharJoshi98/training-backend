@@ -6,7 +6,7 @@ function verifyToken(req, res, next) {
     
     if (!token) {
         return res
-            .status(400)
+            .status(401)
             .json({
                 success: false,
                 message: "Unauthorized - no token provided"
@@ -24,9 +24,9 @@ function verifyToken(req, res, next) {
                     message: "Unauthorized - invalid token"
                 });
         }
-        
-        req.instituteName = decode.instituteName;
-        console.log(req.instituteName)
+        req.role = decode.role;
+        req.username = decode.username;
+
         next();
 
     } catch (error) {

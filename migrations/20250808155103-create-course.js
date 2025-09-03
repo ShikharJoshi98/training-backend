@@ -15,6 +15,9 @@ module.exports = {
       courseDuration: {
         type: Sequelize.STRING
       },
+      courseCategory: {
+        type: Sequelize.STRING
+      },
       courseImage: {
         type: Sequelize.TEXT('long')
       },
@@ -22,6 +25,9 @@ module.exports = {
         type: Sequelize.TEXT('long')
       },
       jobOpportunities: {
+        type: Sequelize.STRING
+      },
+      incomeRange: {
         type: Sequelize.STRING
       },
       courseInfo: {

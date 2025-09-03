@@ -2,10 +2,11 @@ const { NODE_ENV } = require("../config");
 const { authServices } = require("../services");
 
 //registration
-async function registerInstitue(req, res) {
+async function registerSuperAdmin(req, res) {
     try {
-        const { instituteName, password, email, phone, altPhone, address } = req.body;
-        if (!instituteName || !password || !email || !phone || !address) {
+        const { username, password } = req.body;
+
+        if (!username || !password) {
             return res
                 .status(400)
                 .json({
@@ -14,7 +15,37 @@ async function registerInstitue(req, res) {
                 });
         }
 
-        const institute = await authServices.addInstitute({ instituteName, password, email, phone, altPhone, address });
+        const superAdmin = await authServices.addSuperAdmin({ username, password });
+        return res
+            .status(200)
+            .json({
+                success: true,
+                message: "Added Super Admin",
+                superAdmin
+            });
+    } catch (error) {
+        return res
+            .status(500)
+            .json({
+                success: false,
+                message: error.message
+            });
+    }
+}
+async function registerInstitue(req, res) {
+    try {
+        const { instituteName, username, password } = req.body;
+
+        if (!instituteName || !username || !password) {
+            return res
+                .status(400)
+                .json({
+                    success: false,
+                    message: "Missing required fields"
+                });
+        }
+
+        const institute = await authServices.addInstitute({ instituteName, username, password });
 
         return res
             .status(200)
@@ -28,9 +59,9 @@ async function registerInstitue(req, res) {
             return res
                 .status(409)
                 .json({
-                success: false,
-                message: "Account for this Institute already exists. Try logging in."
-            });
+                    success: false,
+                    message: "Account for this Institute already exists. Try logging in."
+                });
         }
 
         return res
@@ -45,9 +76,9 @@ async function registerInstitue(req, res) {
 //login
 async function login(req, res) {
     try {
-        const { instituteName, password } = req.body;
+        const { username, password } = req.body;
 
-        if (!instituteName || !password) {
+        if (!username || !password) {
             return res
                 .status(400)
                 .json({
@@ -55,8 +86,11 @@ async function login(req, res) {
                     message: "Missing required fields"
                 });
         }
-        const { institute, token } = await authServices.login({ instituteName, password });
-        
+
+        const { role } = await authServices.findUser(username);
+
+        const { user, token } = await authServices.login({ username, password, role });
+
         res.cookie("token", token, {
             httpOnly: true,
             secure: NODE_ENV === "development",
@@ -69,7 +103,7 @@ async function login(req, res) {
             .json({
                 success: true,
                 message: "Logged in successfully",
-                institute
+                user
             });
     } catch (error) {
         if (error.statusCode === 409) {
@@ -90,13 +124,13 @@ async function login(req, res) {
     }
 }
 
-async function logout(req,res) {
+async function logout(req, res) {
     try {
         res.clearCookie("token");
         return res
             .status(200)
             .json({
-                success:true,
+                success: true,
                 message: "Logged out successfully"
             });
     } catch (error) {
@@ -106,32 +140,30 @@ async function logout(req,res) {
                 success: false,
                 message: error.message
             });
-    }    
+    }
 }
 
 async function checkAuth(req, res) {
     try {
-        const { instituteName } = req;
-
-        if (!instituteName) {
+        const { username, role } = req;
+        if (!username) {
             return res
                 .status(400)
                 .json({
-                    message: "Missing the institute Name while checking auth",
+                    message: "Missing the username while checking auth",
                     success: false
                 });
         }
 
-        const institute = await authServices.authChecker(instituteName);
+        const user = await authServices.authChecker({ role, username });
 
         return res
             .status(200)
             .json({
                 success: true,
-                message:"Authentication Successful",
-                institute,
-                
-        })
+                message: "Authentication Successful",
+                user,
+            })
 
     } catch (error) {
         if (error.statusCode === 409) {
@@ -150,7 +182,7 @@ async function checkAuth(req, res) {
                 message: error.message
             });
     }
-    
+
 }
 
-module.exports = { registerInstitue, login, logout, checkAuth };
+module.exports = { registerInstitue, registerSuperAdmin, login, logout, checkAuth };

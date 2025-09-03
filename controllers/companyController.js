@@ -88,11 +88,11 @@ async function updateInstitute(req, res) {
 //socialLinks
 async function addSocialLinks(req, res) {
     try {
-        const { facebook, linkedIn, Instagram, twitter, youtube, instituteId } = req.body;
-        const { id, } = req.params;
-        console.log('hit')
-        const socialInfo = await companyInfoServices.createSocialLinks("instituteId",{ facebook, linkedIn, Instagram, twitter, youtube, instituteId },id);
-
+        const { facebook, linkedIn, Instagram, twitter, youtube } = req.body;        
+        const { id } = req.params;
+        
+        const socialInfo = await companyInfoServices.createSocialLinks({ facebook, linkedIn, Instagram, twitter, youtube },id);
+        
         return res
             .status(200)
             .json({
@@ -142,9 +142,98 @@ async function getSocialLinks(req, res) {
     }
 }
 
+//domain
+
+async function createDomain(req,res) {
+    try {
+        const domain = await companyInfoServices.addDomain({ domainName: req.body.domainName, instituteId: req.body.instituteId });
+        
+        return res
+            .status(200)
+            .json({
+                success: true,
+                message: "Domain created successfully",
+                domain
+            });
+    } catch (error) {
+        return res
+            .status(500)
+            .json({
+                success: false,
+                message: error.message
+            });
+    }
+}
+
+async function getDomain(req,res) {
+    try {
+        const domain = await companyInfoServices.getDomain(req.params.id);
+
+        return res
+            .status(200)
+            .json({
+                success: true,
+                message: "Domain fetched successfully",
+                domain
+            });
+    } catch (error) {
+        return res
+            .status(500)
+            .json({
+                success: false,
+                message: error.message
+            });
+    }
+}
+
+async function findDomain(req,res) {
+    try {
+        const domain = await companyInfoServices.fetchDomain(req.query.host);
+        console.log("hit",req.query.host);
+        return res
+            .status(200)
+            .json({
+                success: true,
+                message: "Fetched all domains successfully",
+                domain:domain[0]
+            });
+    } catch (error) {
+        return res
+            .status(500)
+            .json({
+                success: false,
+                message: error.message
+            });
+    }
+}
+
+async function updateDomain(req,res) {
+    try {
+        const domain = await companyInfoServices.updateDomain(req.params.id, { domainName: req.body.domainName });
+        return res
+            .status(200)
+            .json({
+                success: true,
+                message: "Updated Domain name",
+                domain
+            });
+    } catch (error) {
+        return res
+            .status(500)
+            .json({
+                success: false,
+                message: error.message
+            });
+    }
+}
+
 module.exports = {
     getCompanyInfo,
     addSocialLinks,
     updateInstitute,
-    getSocialLinks
+    getSocialLinks,
+    createDomain,
+    getDomain,
+    findDomain,
+    updateDomain
 }

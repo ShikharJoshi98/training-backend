@@ -1,8 +1,27 @@
-const { CourseRepository, UpcomingBatchesRepository, CurriculumRepository } = require("../repositories");
+const { CourseRepository, UpcomingBatchesRepository, CurriculumRepository, CourseCategoryRepository } = require("../repositories");
 
 const courseRepository = new CourseRepository();
 const upcomingBatchesRepository = new UpcomingBatchesRepository();
 const curriculumRepository = new CurriculumRepository();
+const courseCategoryRepository = new CourseCategoryRepository();
+
+async function addCourseCategory(data) {
+    try {
+        const response = await courseCategoryRepository.create(data);
+        return response;
+    } catch (error) {
+        console.log("Error in addCourseCategory in course services", error.message);
+    }
+}
+
+async function getCourseCategory(instituteId) {
+    try {
+        const response = await courseCategoryRepository.getByType("instituteId", instituteId);
+        return response;
+    } catch (error) {
+        console.log("Error in getCourseCategory in course services", error.message);
+    }
+}
 
 async function addCourse(data) {
     try {
@@ -22,6 +41,15 @@ async function getAllCourses(instituteId, id) {
     }
 }
 
+async function getCourse(id) {
+    try {
+        const response = await courseRepository.get(id);
+        return response;
+    } catch (error) {
+        console.log("Error in getAllCourses in course services", error.message);
+    }
+}
+
 async function deleteCourse(id) {
     try {
         const response = await courseRepository.destroy(id);
@@ -34,6 +62,7 @@ async function deleteCourse(id) {
 async function addUpcomingBatches(data) {
     try {
         const response = await upcomingBatchesRepository.create(data);
+        
         return response;
     } catch (error) {
         console.log("Error in addUpcomingBatches in course services", error.message);
@@ -125,6 +154,14 @@ async function deleteSubTopic(id, index) {
   }
 }
 
+async function fetchCourseCurriculum(courseId,instituteId) {
+    try {
+        const response = await curriculumRepository.selectCourseCurriculum(courseId, instituteId);
+        return response;
+    } catch (error) {
+        console.log("Error in fetchCourseCurriculum in course services", error.message);
+    }
+}
 
 async function selectTopCourse(id, courseIds) {
     try {
@@ -134,6 +171,16 @@ async function selectTopCourse(id, courseIds) {
         return response;
     } catch (error) {
         console.log("Error in selectTopCourse in course services", error.message);
+    }
+}
+
+async function getTopCourses(instituteId) {
+    try {
+        const result = await courseRepository.getByType("instituteId", instituteId);
+        const response = result.filter((item, _) => item?.isTopCourse === true);
+        return response;
+    } catch (error) {
+        console.log("Error in getTopCourses in course services", error.message);
     }
 }
 
@@ -156,8 +203,11 @@ async function deteteUpcomingBatches(id) {
 }
 
 module.exports = {
+    addCourseCategory,
+    getCourseCategory,
     addCourse,
     getAllCourses,
+    getCourse,
     addUpcomingBatches,
     addTopic,
     getTopic,
@@ -166,7 +216,9 @@ module.exports = {
     addSubTopic,
     updateSubTopic,
     deleteSubTopic,
+    fetchCourseCurriculum,
     selectTopCourse,
+    getTopCourses,
     getUpcomingBatches,
     deteteUpcomingBatches,
     deleteCourse

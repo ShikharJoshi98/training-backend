@@ -14,14 +14,19 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Institute.init({
-    instituteName: {type:DataTypes.STRING,allowNull:false},
+    username: { type: DataTypes.STRING, allowNull: false },
+    instituteName: { type: DataTypes.STRING, allowNull: false },
+    role: {
+      type: DataTypes.STRING,
+      defaultValue:'user'
+    },
     logo: {type: DataTypes.TEXT('long')},
     abbv: {type:DataTypes.STRING},
     password: {type:DataTypes.STRING,allowNull:false},
-    email: {type:DataTypes.STRING,allowNull:false},
-    phone: {type:DataTypes.STRING,allowNull:false},
+    email: {type:DataTypes.STRING},
+    phone: {type:DataTypes.STRING},
     altPhone: DataTypes.STRING,
-    address: {type:DataTypes.STRING,allowNull:false}
+    address: { type: DataTypes.STRING},
   }, {
     sequelize,
     modelName: 'Institute',

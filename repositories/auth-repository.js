@@ -6,10 +6,10 @@ class AuthRepository extends CrudRepository{
         super(Institute)
     }
 
-    async findByName(instituteName) {
+    async findByName(username) {
         try {
             const response = await this.model.findOne({
-                where: { instituteName }
+                where: { username },
             });
 
             return response;

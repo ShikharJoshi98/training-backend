@@ -7,6 +7,7 @@ const router = express.Router();
 //admin-auth
 router.get('/check-auth', verifyToken, authController.checkAuth);
 router.post('/registerInstitute', authController.registerInstitue);
+router.post('/registerSuperAdmin', authController.registerSuperAdmin);
 router.post('/login', authController.login);
 router.post('/logout', authController.logout);
 

@@ -2,7 +2,8 @@ const { CompanyInfoRepository, SocialLinksRepository } = require("./companyInfo-
 
 module.exports = {
     CrudRepository: require("./crud-repository"),
-    CompanyInfoRepository: CompanyInfoRepository ,
+    CompanyInfoRepository: CompanyInfoRepository,
+    DomainRepository: require("./domain-repository"),
     SocialLinksRepository: SocialLinksRepository,
     TestimonialRepository: require("./testimonial-repository"),
     TutorialRepository: require("./tutorial-repository"),
@@ -11,5 +12,10 @@ module.exports = {
     ChapterRepository: require("./chapter-repository"),
     CourseRepository: require("./course-repository"),
     UpcomingBatchesRepository: require("./upcomingBatches-repository"),
-    CurriculumRepository: require("./curriculum-repository")
+    CurriculumRepository: require("./curriculum-repository"),
+    EnquiryRepository: require("./enquiry-repository"),
+    CourseCategoryRepository: require("./courseCategory-repository"),
+    SuperAdminRepository: require("./superAdmin-repository"),
+    HeroSectionRepository: require("./heroSection-repository"),
+    AboutUsRepository: require("./aboutUs-repository"),
 }

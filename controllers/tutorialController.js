@@ -3,7 +3,7 @@ const { tutorialServices } = require("../services");
 async function addTutorial(req, res) {
     try {
         const { section, tutorialName, tutorialImage, instituteId } = req.body;
-        if (!section || !tutorialName || !tutorialImage) {
+        if (!section || !tutorialName) {
             return res
                 .status(400)
                 .json({
@@ -156,7 +156,6 @@ async function getChapterInfo(req, res) {
 
 async function editChapterInfo(req, res) {
     try {
-        console.log(req.body.newChapter)
         const updatedTopic = await tutorialServices.editChapter(req.params.id, { chapter: req.body.newChapter });
         return res
             .status(200)
@@ -237,6 +236,26 @@ async function updateSubChapters(req,res) {
     }
 }
 
+async function editSubChapter(req, res) {
+    try {        
+        const subChapter= await tutorialServices.updateSubChapter(req.params.id, req.body.index, req.body.data);
+        return res
+            .status(200)
+            .json({
+                success: true,
+                message: "successfully edited",
+                subChapter
+            });
+    } catch (error) {
+        return res
+            .status(500)
+            .json({
+                success: false,
+                message: error.message
+            });
+    }
+}
+
 async function deleteSubChapter(req, res) {
     try {
         const subChapter = await tutorialServices.deleteSubChapter(req.params.id, req.body.index);
@@ -269,5 +288,6 @@ module.exports = {
     getTutorials,
     deleteTutorial,
     updateSubChapters,
+    editSubChapter,
     deleteSubChapter
 };
