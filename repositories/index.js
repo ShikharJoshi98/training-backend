@@ -18,4 +18,9 @@ module.exports = {
     SuperAdminRepository: require("./superAdmin-repository"),
     HeroSectionRepository: require("./heroSection-repository"),
     AboutUsRepository: require("./aboutUs-repository"),
+    BlogsRepository: require("./blog-repository"),
+    WhoWeAreRepository: require("./whoWeAre-repository"),
+    WhyChooseUsRepository: require("./whyChooseUs-repository"),
+    ShapingSuccessRepository: require("./shapingSuccess-repository"),
+    FAQRepository: require("./faq-repository")
 }

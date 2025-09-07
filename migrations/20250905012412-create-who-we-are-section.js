@@ -2,24 +2,21 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('UpcomingBatches', {
+    await queryInterface.createTable('whoWeAreSections', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      startingDate: {
-        type: Sequelize.STRING
+      aboutCards: {
+        type: Sequelize.JSON
       },
-      timing: {
-        type: Sequelize.STRING
+      aboutList: {
+        type: Sequelize.TEXT
       },
-      type: {
-        type: Sequelize.STRING
-      },
-      classDays: {
-        type: Sequelize.STRING
+      image: {
+        type: Sequelize.TEXT('long')
       },
       instituteId: {
         type: Sequelize.INTEGER,
@@ -30,12 +27,6 @@ module.exports = {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
-      },
-      batch: {
-        type: Sequelize.STRING
-      },
-      courseId: {
-        type: Sequelize.INTEGER 
       },
       createdAt: {
         allowNull: false,
@@ -48,6 +39,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('UpcomingBatches');
+    await queryInterface.dropTable('whoWeAreSections');
   }
 };

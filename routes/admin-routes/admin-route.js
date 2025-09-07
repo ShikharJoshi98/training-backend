@@ -1,5 +1,5 @@
 const express = require('express');
-const { companyController, testimonialController, tutorialController, courseController, landingPageController } = require('../../controllers');
+const { companyController, testimonialController, tutorialController, courseController, landingPageController, blogController, faqController } = require('../../controllers');
 
 const router = express.Router();
 
@@ -62,5 +62,27 @@ router.post("/addHeroSection", landingPageController.addHeroSection);
 router.get("/getHeroSection/:id", landingPageController.getHeroSection);
 router.post("/addAboutUs", landingPageController.addAboutUs);
 router.get("/getAboutUs/:id", landingPageController.getAboutUs);
+router.post("/whoWeAre", landingPageController.addWhoWeAre);
+router.get("/getWhoWeAre/:id", landingPageController.getWhoWeAre);
+router.post("/addWhyChooseUs", landingPageController.addWhyChooseUs);
+router.get("/getWhyChooseUs/:id", landingPageController.getWhyChooseUs);
+router.post("/addShapingSuccess", landingPageController.addShapingSuccess);
+router.get("/getShapingSuccess/:id", landingPageController.getShapingSuccess);
+
+//Blogs
+router.post("/addBlogs", blogController.createBlogs);
+router.get('/getBlogs/:id', blogController.getBlogs);
+router.get('/getBlog/:id', blogController.getBlog);
+router.patch('/editBlog/:id', blogController.updateBlog);
+router.delete('/deleteBlog/:id', blogController.deleteBlog);
+
+//faq
+router.post("/addFaq", faqController.addFaq);
+router.get("/getFaq/:id", faqController.getFaq);
+router.delete("/deleteFaq/:id", faqController.deleteFaq);
+
+//enquiries
+router.get("/getEnquiries/:id", companyController.getEnquiries);
+router.patch("/updateEnquiry/:id", companyController.updateEnquiry);
 
 module.exports = router;

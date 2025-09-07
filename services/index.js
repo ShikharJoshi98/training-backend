@@ -6,5 +6,7 @@ module.exports = {
     courseServices: require("./courseServices"),
     enquiryServices: require("./enquiryServices"),
     superAdminServices: require("./superAdminServices"),
-    LandingPageServices: require("./LandingPageServices")
+    LandingPageServices: require("./LandingPageServices"),
+    blogServices: require("./blogServices"),
+    faqServices: require("./faqServices")
 }

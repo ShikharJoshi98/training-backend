@@ -1,15 +1,13 @@
-const { companyInfoServices, enquiryServices, courseServices } = require("../services");
+const { faqServices } = require("../services");
 
-async function getDomain(req,res) {
+async function addFaq(req,res) {
     try {
-        const domain = await companyInfoServices.fetchDomain(req.query.host);
-
+        const faq = await faqServices.createFaq(req.body);
         return res
             .status(200)
             .json({
                 success: true,
-                message: "Fetched all domains successfully",
-                domain:domain[0]
+                message: "Add Faqs"
             });
     } catch (error) {
         return res
@@ -21,16 +19,15 @@ async function getDomain(req,res) {
     }
 }
 
-async function createEnquiry(req,res) {
+async function getFaq(req,res) {
     try {
-        const enquiry = await enquiryServices.addEnquiry(req.body.data);
-
+        const faq = await faqServices.getFaq(req.params.id);
         return res
             .status(200)
             .json({
                 success: true,
-                message: "Added enquiry successfully",
-                enquiry
+                message: "Fetched FAQs successfully",
+                faq
             });
     } catch (error) {
         return res
@@ -42,15 +39,15 @@ async function createEnquiry(req,res) {
     }
 }
 
-async function getTopCourses(req,res) {
+async function deleteFaq(req,res) {
     try {
-        const courses = await courseServices.getTopCourses(req.params.id);
+        const faq = await faqServices.deleteFaq(req.params.id, req.body.question);
         return res
             .status(200)
             .json({
                 success: true,
-                message: "courses fetched successfully",
-                courses
+                message: "deleted FAQs successfully",
+                faq
             });
     } catch (error) {
         return res
@@ -63,7 +60,7 @@ async function getTopCourses(req,res) {
 }
 
 module.exports = {
-    getDomain,
-    createEnquiry,
-    getTopCourses
-}
+    addFaq,
+    getFaq,
+    deleteFaq
+};

@@ -1,4 +1,4 @@
-const { companyInfoServices } = require("../services");
+const { companyInfoServices, enquiryServices } = require("../services");
 
 //training-info
 async function getCompanyInfo(req, res) {
@@ -227,6 +227,47 @@ async function updateDomain(req,res) {
     }
 }
 
+//getEnquiries
+
+async function getEnquiries(req,res) {
+    try {
+        const enquiries = await enquiryServices.getEnquiries(req.params.id);
+        return res
+            .status(200)
+            .json({
+                enquiries,
+                success: true,
+                message: "Fetched enquiries successfully"
+            });
+    } catch (error) {
+        return res
+            .status(500)
+            .json({
+                success: false,
+                message: error.message
+            });
+    }
+}
+
+async function updateEnquiry(req,res) {
+    try {
+        const enquiry = await enquiryServices.updateEnquiry(req.params.id, { isContacted: true });
+        return res
+            .status(200)
+            .json({
+                success: true,
+                message: "updated Successfully"
+            });
+    } catch (error) {
+        return res
+            .status(500)
+            .json({
+                success: false,
+                message: error.message
+            });
+    }
+}
+
 module.exports = {
     getCompanyInfo,
     addSocialLinks,
@@ -235,5 +276,7 @@ module.exports = {
     createDomain,
     getDomain,
     findDomain,
-    updateDomain
+    updateDomain,
+    getEnquiries,
+    updateEnquiry
 }

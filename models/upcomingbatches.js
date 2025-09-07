@@ -3,7 +3,7 @@ const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class UpcomingBatches extends Model {
-   
+
   }
 
   UpcomingBatches.init({
@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     timing: DataTypes.STRING,
     type: DataTypes.STRING,
     classDays: DataTypes.STRING,
+    courseId:DataTypes.INTEGER,
     instituteId: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -21,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE'
-    }
+    },
   }, {
     sequelize,
     modelName: 'UpcomingBatches',

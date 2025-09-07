@@ -61,8 +61,9 @@ async function deleteCourse(id) {
 
 async function addUpcomingBatches(data) {
     try {
+        const course = await courseRepository.getOne("course", data.batch);
+        data = { ...data, courseId: course?.id };
         const response = await upcomingBatchesRepository.create(data);
-        
         return response;
     } catch (error) {
         console.log("Error in addUpcomingBatches in course services", error.message);

@@ -6,5 +6,7 @@ module.exports = {
     courseController: require("./courseController"),
     tenantController: require("./tenantController"),
     superAdminController: require("./superAdminController"),
-    landingPageController: require("./landingPageController")
+    landingPageController: require("./landingPageController"),
+    blogController: require("./blogController"),
+    faqController: require("./faqController")
 }
