@@ -46,7 +46,6 @@ async function getFaq(id,index) {
 
 async function deleteFaq(instituteId, questionToDelete) {
   try {
-    console.log(questionToDelete);
         const faqExist = await faqRepository.getOne("instituteId", instituteId);
     if (!faqExist) {
       throw new Error("FAQ document not found");

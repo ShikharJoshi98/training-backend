@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   Institute.init({
     username: { type: DataTypes.STRING, allowNull: false },
     instituteName: { type: DataTypes.STRING, allowNull: false },
+    branchCode: { type: DataTypes.STRING },
     role: {
       type: DataTypes.STRING,
       defaultValue:'user'

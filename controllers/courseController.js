@@ -1,6 +1,6 @@
 const { courseServices } = require("../services");
 
-async function addCourseCategory(req,res) {
+async function addCourseCategory(req, res) {
     try {
         const courseCategory = await courseServices.addCourseCategory(req.body);
         return res
@@ -20,7 +20,7 @@ async function addCourseCategory(req,res) {
     }
 }
 
-async function fetchCourseCategory(req,res) {
+async function fetchCourseCategory(req, res) {
     try {
         const categories = await courseServices.getCourseCategory(req.params.id);
         return res
@@ -80,8 +80,8 @@ async function getCourseDetails(req, res) {
     }
 }
 
-async function getCourse(req,res) {
-     try {
+async function getCourse(req, res) {
+    try {
         const course = await courseServices.getCourse(req.params.id);
         return res
             .status(200)
@@ -184,7 +184,6 @@ async function deleteUpcomingBatches(req, res) {
 
 async function addCourseTopic(req, res) {
     try {
-        console.log(req.body);
         if (!req.body) {
             return res
                 .status(400)
@@ -247,7 +246,7 @@ async function editTopicInfo(req, res) {
                 updatedTopic
             });
     } catch (error) {
-       return res
+        return res
             .status(500)
             .json({
                 success: false,
@@ -256,7 +255,7 @@ async function editTopicInfo(req, res) {
     }
 }
 
-async function deleteTopic(req,res) {
+async function deleteTopic(req, res) {
     try {
         const topic = await courseServices.deleteTopic(req.params.id);
         return res
@@ -276,7 +275,7 @@ async function deleteTopic(req,res) {
     }
 }
 
-async function getCourseCurriculum(req,res) {
+async function getCourseCurriculum(req, res) {
     try {
         const curriculum = await courseServices.fetchCourseCurriculum(req.params.courseId, req.params.instituteId);
         return res
@@ -316,7 +315,7 @@ async function updateSubTopics(req, res) {
 }
 
 async function editSubTopic(req, res) {
-    try {        
+    try {
         const subTopic = await courseServices.updateSubTopic(req.params.id, req.body.index, req.body.data);
         return res
             .status(200)

@@ -17,6 +17,9 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      branchCode: {
+        type: Sequelize.STRING,
+      },
       role: {
         type: Sequelize.STRING,
         defaultValue: 'user'

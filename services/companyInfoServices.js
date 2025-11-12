@@ -43,7 +43,7 @@ async function createSocialLinks(data,id) {
 
 async function getSocialLinks(id) {
     try {
-        const info = await socialLinksRepository.get(id);
+        const info = await socialLinksRepository.getOne("instituteId",id);
         return info;
     } catch (error) {
         console.log("error in companyInfoServices in getSocialLinks:", error.message);

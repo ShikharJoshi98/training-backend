@@ -16,33 +16,17 @@ module.exports = (sequelize, DataTypes) => {
   Curriculum.init({
     topic: DataTypes.STRING,
     subTopic: {
-      type: DataTypes.TEXT,
-      get() {
-        const rawValue = this.getDataValue('subTopic');
-        if (!rawValue || rawValue === '[]') return [];
+  type: DataTypes.TEXT,
+  get() {
+    const rawValue = this.getDataValue('subTopic');
+    return rawValue ? JSON.parse(rawValue) : [];
+  },
+  set(value) {
+    // Ensure we always store as a JSON string
+    this.setDataValue('subTopic', JSON.stringify(value));
+  }
+},
 
-        const parsed = rawValue
-          .replace(/^\[|\]$/g, '')
-          .split(',')
-          .map(str => str.trim())
-          .filter(str => str !== ''); 
-
-        return parsed;
-      },
-      set(value) {
-        if (Array.isArray(value)) {
-          if (value.length === 0) {
-            this.setDataValue('subTopic', '[]');
-          } else {
-            this.setDataValue('subTopic', `[${value.join(',')}]`);
-          }
-        } else if (typeof value === 'string') {
-          this.setDataValue('subTopic', value);
-        } else {
-          this.setDataValue('subTopic', '[]');
-        }
-      }
-    },
     instituteId: {
       type: DataTypes.INTEGER,
       allowNull: false,

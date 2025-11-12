@@ -8,5 +8,6 @@ module.exports = {
     superAdminController: require("./superAdminController"),
     landingPageController: require("./landingPageController"),
     blogController: require("./blogController"),
-    faqController: require("./faqController")
+    faqController: require("./faqController"),
+    studentController: require("./studentController")
 }

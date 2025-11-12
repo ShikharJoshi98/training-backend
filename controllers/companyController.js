@@ -42,6 +42,9 @@ async function updateInstitute(req, res) {
         if (req.body.instituteName) {
             data.instituteName = req.body.instituteName;
         };
+        if (req.body.branchCode) {
+            data.branchCode = req.body.branchCode;
+        }
         if (req.body.abbv) {
             data.abbv = req.body.abbv;
         };
@@ -124,7 +127,6 @@ async function getSocialLinks(req, res) {
         }
 
         const socialLinks = await companyInfoServices.getSocialLinks(id);
-
         return res
             .status(200)
             .json({

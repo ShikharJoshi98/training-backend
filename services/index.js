@@ -8,5 +8,6 @@ module.exports = {
     superAdminServices: require("./superAdminServices"),
     LandingPageServices: require("./LandingPageServices"),
     blogServices: require("./blogServices"),
-    faqServices: require("./faqServices")
+    faqServices: require("./faqServices"),
+    studentServices: require("./studentServices")
 }

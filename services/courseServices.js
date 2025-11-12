@@ -109,7 +109,7 @@ async function deleteTopic(id) {
 async function addSubTopic(id, data) {
     try {
         const response = await curriculumRepository.get(id);
-        const updatedSubTopics = response?.subTopic;
+        const updatedSubTopics = response?.subTopic || [];
         updatedSubTopics.push(data);
 
         response.subTopic = updatedSubTopics;

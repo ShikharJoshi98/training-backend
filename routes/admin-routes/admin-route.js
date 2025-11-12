@@ -1,5 +1,14 @@
 const express = require('express');
-const { companyController, testimonialController, tutorialController, courseController, landingPageController, blogController, faqController } = require('../../controllers');
+const {
+    companyController,
+    testimonialController,
+    tutorialController,
+    courseController,
+    landingPageController,
+    blogController,
+    faqController,
+    studentController
+} = require('../../controllers');
 
 const router = express.Router();
 
@@ -45,7 +54,7 @@ router.post('/addSubTopic/:id', courseController.updateSubTopics);
 router.patch("/editSubTopic/:id", courseController.editSubTopic);
 router.delete("/deleteSubTopic/:id", courseController.deleteSubTopic);
 router.patch('/selectTopCourse/:id', courseController.selectTopCourse);
-router.get('/getCourseCurriculum/:courseId/:instituteId',courseController.getCourseCurriculum);
+router.get('/getCourseCurriculum/:courseId/:instituteId', courseController.getCourseCurriculum);
 
 //Upcoming Batches
 router.post('/addUpcomingBatch/:id', courseController.createUpcomingBatches);
@@ -84,5 +93,12 @@ router.delete("/deleteFaq/:id", faqController.deleteFaq);
 //enquiries
 router.get("/getEnquiries/:id", companyController.getEnquiries);
 router.patch("/updateEnquiry/:id", companyController.updateEnquiry);
+
+//students
+router.post("/addStudent", studentController.createStudent);
+router.get("/getStudents/:id", studentController.fetchStudents);
+router.delete("/deleteStudent/:id", studentController.removeStudent);
+router.get("/getStudent/:id", studentController.fetchStudent);
+router.patch("/editStudentDetails/:id", studentController.editStudentDetails);
 
 module.exports = router;

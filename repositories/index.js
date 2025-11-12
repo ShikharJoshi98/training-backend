@@ -22,5 +22,6 @@ module.exports = {
     WhoWeAreRepository: require("./whoWeAre-repository"),
     WhyChooseUsRepository: require("./whyChooseUs-repository"),
     ShapingSuccessRepository: require("./shapingSuccess-repository"),
-    FAQRepository: require("./faq-repository")
+    FAQRepository: require("./faq-repository"),
+    StudentDetailsRepository: require("./studentDetails-repository")
 }
