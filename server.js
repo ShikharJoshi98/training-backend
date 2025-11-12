@@ -1,5 +1,5 @@
 const express = require("express");
-const { PORT, FRONTEND_URL,NEXT_FRONTEND_URL } = require("./config");
+const { PORT, FRONTEND_URL,NEXT_FRONTEND_URL, DB_HOST } = require("./config");
 const apiRoutes = require("./routes");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
@@ -25,6 +25,8 @@ app.use('/api', apiRoutes);
 app.get('/', (req, res) => {
     res.send("Server working");
 })
+
+console.log(`Database connected successfully ${DB_HOST}`)
 
 app.listen(PORT, () => {
     console.log(`Server working on ${PORT}`);
